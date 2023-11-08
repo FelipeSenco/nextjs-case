@@ -20,11 +20,11 @@ export const WeatherContextProvider: FC<WeatherContextProviderProps> = ({
 }) => {
   const [weather, setWeather] = useState<Weather | null>(null);
 
-  useEffect(() => {
-    getWeatherData()
-      .then((res) => setWeather(res))
-      .catch((e) => console.log(e));
-  }, []);
+  // useEffect(() => {
+  //   getWeatherData()
+  //     .then((res) => setWeather(res))
+  //     .catch((e) => console.log(e));
+  // }, []);
 
   return (
     <WeatherContext.Provider value={{ weather }}>
