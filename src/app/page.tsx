@@ -1,10 +1,8 @@
-import React from "react";
-import { getWeatherData } from "@/utils/getWeather";
-import WeatherDisplay from "./Components/WeatherDisplay";
+import React, { useContext } from "react";
 import Header from "./Components/Header";
+import WeatherDisplay from "./Components/WeatherDisplay";
 
 export default async function Home() {
-  const data = await getWeatherData();
   return (
     <>
       <Header />
@@ -16,7 +14,7 @@ export default async function Home() {
           <p className="text-lg text-gray-600 mb-8">
             Thank you for this opportunity to present my Next.js case.
           </p>
-          <WeatherDisplay data={data} />
+          <WeatherDisplay />
         </div>
       </main>
     </>

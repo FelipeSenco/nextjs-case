@@ -1,15 +1,17 @@
-import { FC } from "react";
+"use client";
+import { FC, useContext } from "react";
+import WeatherContext from "../Contexts/WeatherContext";
 
-type WeatherDisplayProps = {
-  data: Weather;
-};
+const WeatherDisplay: FC = () => {
+  const { weather } = useContext(WeatherContext);
 
-const WeatherDisplay: FC<WeatherDisplayProps> = ({ data }) => {
+  if (!weather) return null;
+
   return (
     <div className="text-center p-4 rounded bg-blue-50 border border-blue-200">
       <p className="text-lg text-gray-700">Weather in Brasília:</p>
       <p className="text-xl font-semibold text-gray-800">
-        {data.temp_c}° Celsius, {data.condition.text}
+        {weather.temp_c}° Celsius, {weather.condition.text}
       </p>
     </div>
   );
