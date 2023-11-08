@@ -17,10 +17,10 @@ model Customer {
 }
 
 model Order {
-  id         Int      @id @default(autoincrement())
-  name       String   
+  id         Int      @id @default(autoincrement())  
   product    String
   quantity   Int
   customerId Int
   Customer   Customer @relation(fields: [customerId], references: [id])
+  dateCreated DateTime  @default(now())
 }
