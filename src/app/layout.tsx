@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { WeatherContextProvider } from "./Contexts/WeatherContext";
+import QueryClientCustomProvider from "./Contexts/QueryClientCustomProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className} id="app-body">
-        <WeatherContextProvider>{children}</WeatherContextProvider>
+        <QueryClientCustomProvider>
+          <WeatherContextProvider>{children}</WeatherContextProvider>
+        </QueryClientCustomProvider>
       </body>
     </html>
   );

@@ -1,7 +1,8 @@
-import { getCustomers } from "@/utils/getCustomers";
+"use client";
+import { useCostumersQuery } from "@/hooks/CustomerQueries";
 
-const Customers = async () => {
-  const customers = await getCustomers();
+const Customers = () => {
+  const { customers } = useCostumersQuery(true);
 
   return (
     <div className="container mx-auto mt-10">
@@ -33,7 +34,7 @@ const Customers = async () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {customers.map(customer => (
+                  {customers?.map(customer => (
                     <tr key={customer.id}>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                         {customer.id}
