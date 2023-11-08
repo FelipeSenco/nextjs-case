@@ -10,7 +10,6 @@ export const useCostumersQuery = (enabled = false) => {
     getCustomers,
     {
       enabled,
-      initialData: [] as unknown[],
       onError: (error: Error) => console.log(error),
     }
   );

@@ -1,8 +1,9 @@
 "use client";
+import LoadingSpinner from "@/app/Components/LoadingSpinner";
 import { useCostumersQuery } from "@/hooks/CustomerQueries";
 
 const Customers = () => {
-  const { customers } = useCostumersQuery(true);
+  const { customers, isLoading, isError } = useCostumersQuery(true);
 
   return (
     <div className="container mx-auto mt-10">
@@ -49,6 +50,15 @@ const Customers = () => {
                   ))}
                 </tbody>
               </table>
+              {isLoading && <LoadingSpinner />}
+              {isError && (
+                <div className="flex justify-center items-center">
+                  <p className="text-red-500">
+                    There was an error fetching customer data. Please reload the
+                    page...
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
