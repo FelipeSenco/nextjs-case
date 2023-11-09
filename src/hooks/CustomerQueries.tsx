@@ -4,7 +4,7 @@ import { getCustomers } from "@/utils/getCustomers";
 import { Customer } from "@prisma/client";
 import { useQuery } from "react-query";
 
-export const useCostumersQuery = (enabled = false) => {
+export const useCustomersQuery = (enabled = false) => {
   const { data, isError, isLoading, refetch } = useQuery(
     ["customers"],
     getCustomers,

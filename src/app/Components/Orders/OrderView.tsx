@@ -1,12 +1,26 @@
-"use client";
-import LoadingSpinner from "@/app/Components/LoadingSpinner";
-import { useCustomersQuery } from "@/hooks/CustomerQueries";
+import { Order } from "@prisma/client";
+import { FC } from "react";
+import LoadingSpinner from "../LoadingSpinner";
 
-const Customers = () => {
-  const { customers, isLoading, isError } = useCustomersQuery(true);
+export type ExtendedOrder = Order & {
+  // Updated type to include customer info
+  Customer: {
+    name: string;
+  };
+};
 
+type OrderViewProps = {
+  isLoading: boolean;
+  isError: boolean;
+  orders: ExtendedOrder[];
+};
+
+const OrderView: FC<OrderViewProps> = ({ isLoading, isError, orders = [] }) => {
   return (
     <div className="container mx-auto mt-10">
+      {!isError && !isLoading && orders?.length === 0 && (
+        <p className="text-gray-600 mt-4">There are no orders yet...</p>
+      )}
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -18,33 +32,51 @@ const Customers = () => {
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      ID
+                      Order ID
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      Name
+                      Product
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      Email
+                      Quantity
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Customer Name
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Date Created
                     </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {customers?.map(customer => (
-                    <tr key={customer.id}>
+                  {orders.map(order => (
+                    <tr key={order.id}>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {customer.id}
+                        {order.id}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {customer.name}
+                        {order.product}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {customer.email}
+                        {order.quantity}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {order.Customer?.name}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {new Date(order.dateCreated).toLocaleDateString()}{" "}
                       </td>
                     </tr>
                   ))}
@@ -54,7 +86,7 @@ const Customers = () => {
               {isError && (
                 <div className="flex justify-center items-center">
                   <p className="text-red-500">
-                    There was an error fetching customer data. Please reload the
+                    There was an error fetching the orders. Please reload the
                     page...
                   </p>
                 </div>
@@ -67,4 +99,4 @@ const Customers = () => {
   );
 };
 
-export default Customers;
+export default OrderView;
