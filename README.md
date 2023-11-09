@@ -111,7 +111,7 @@ npm run test
 
 ### Playwright Tests
 
-To run tests with Playwright, make sure the app is running in production mode, as these tests interact with the live application.
+To run tests with Playwright, make sure the app is running using `npm run start`, as these tests interact with the live application.
 
 #### Install Browsers
 

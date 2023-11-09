@@ -22,6 +22,22 @@ describe("OrderView component", () => {
     expect(loading).toBeDefined();
   });
 
+  test("Do NOT show loading spinner if isLoading is false", () => {
+    render(
+      <OrderView
+        isLoading={false}
+        isError={false}
+        orders={[]}
+        onEdit={mockEdit}
+        onDelete={mockDelete}
+      />
+    );
+
+    const loading = document.querySelector(`[data-testid="loading-spinner"]`);
+
+    expect(loading).toBeNull();
+  });
+
   test("Show error message if isError is true", () => {
     render(
       <OrderView
@@ -36,6 +52,22 @@ describe("OrderView component", () => {
     const error = screen.getByTestId("order-view-error");
 
     expect(error).toBeDefined();
+  });
+
+  test("Do NOT show error message if isError is false", () => {
+    render(
+      <OrderView
+        isLoading={false}
+        isError={false}
+        orders={[]}
+        onEdit={mockEdit}
+        onDelete={mockDelete}
+      />
+    );
+
+    const error = document.querySelector(`[data-testid="order-view-error"]`);
+
+    expect(error).toBeNull();
   });
 
   test("Show order data in the table when available", () => {

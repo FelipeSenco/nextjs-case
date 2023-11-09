@@ -11,12 +11,27 @@ describe("CustomerView component", () => {
     expect(loading).toBeDefined();
   });
 
+  test("Do NOT show loading spinner if isLoading is false", () => {
+    render(<CustomerView isLoading={false} isError={false} customers={[]} />);
+
+    const loading = document.querySelector(`[data-testid="loading-spinner"]`);
+
+    expect(loading).toBeNull();
+  });
+
   test("Show error message if isError is true", () => {
     render(<CustomerView isLoading={false} isError={true} customers={[]} />);
 
     const error = screen.getByTestId("customer-view-error");
 
     expect(error).toBeDefined();
+  });
+
+  test("Do NOT show error message if isError is false", () => {
+    render(<CustomerView isLoading={false} isError={false} customers={[]} />);
+
+    const error = document.querySelector(`[data-testid="customer-view-error"]`);
+    expect(error).toBeNull();
   });
 
   test("Show customer data in the table when available", () => {
