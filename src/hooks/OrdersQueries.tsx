@@ -7,7 +7,6 @@ import {
   editOrder,
   getOrders,
 } from "@/utils/ordersRequests";
-import { Order } from "@prisma/client";
 import { useMutation, useQuery } from "react-query";
 
 export const useOrdersQuery = (enabled = false) => {

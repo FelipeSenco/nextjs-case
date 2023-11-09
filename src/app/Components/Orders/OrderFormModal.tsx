@@ -1,4 +1,3 @@
-"use client";
 import { useCustomersQuery } from "@/hooks/CustomerQueries";
 import {
   useCreateOrderMutation,
@@ -8,7 +7,6 @@ import { Order } from "@prisma/client";
 import { FC, FormEvent, SetStateAction, useState } from "react";
 import ReactModal from "react-modal";
 import { useQueryClient } from "react-query";
-import LoadingSpinner from "../LoadingSpinner";
 
 type OrderFormModalProps = {
   open: boolean;
@@ -49,8 +47,6 @@ const OrderFormModal: FC<OrderFormModalProps> = ({
     !isCreateError && setOpen(false);
   };
 
-  console.log(editOrder);
-
   const onEdit = async () => {
     await editOrderMutation({
       product,
@@ -89,8 +85,8 @@ const OrderFormModal: FC<OrderFormModalProps> = ({
           left: "auto",
           right: "auto",
           bottom: "auto",
-          width: "50%",
-          height: "50%",
+          width: "30%",
+          height: "40%",
         },
       }}
     >
@@ -98,55 +94,57 @@ const OrderFormModal: FC<OrderFormModalProps> = ({
         className="relative p-8 w-full max-w-md m-auto flex-col flex items-center justify-center rounded"
         onSubmit={e => onSubmit(e)}
       >
-        <div className="mb-6">
-          <label htmlFor="product" className={labelStyle}>
-            Product
-          </label>
-          <input
-            maxLength={50}
-            type="text"
-            id="product"
-            value={product}
-            required
-            onChange={e => setProduct(e.target.value)}
-            className={inputStyle}
-          />
+        <div className="flex flex-col items-start">
+          <div className="mb-6">
+            <label htmlFor="product" className={labelStyle}>
+              Product
+            </label>
+            <input
+              maxLength={50}
+              type="text"
+              id="product"
+              value={product}
+              required
+              onChange={e => setProduct(e.target.value)}
+              className={inputStyle}
+            />
+          </div>
+          <div className="mb-6">
+            <label htmlFor="quantity" className={labelStyle}>
+              Quantity
+            </label>
+            <input
+              type="number"
+              min={1}
+              max={50}
+              id="quantity"
+              value={quantity}
+              required
+              onChange={e => setQuantity(parseInt(e.target.value))}
+              className={inputStyle}
+            />
+          </div>
+          <div className="mb-6">
+            <label htmlFor="customerId" className={labelStyle}>
+              Customer
+            </label>
+            <select
+              id="customerId"
+              value={customerId}
+              onChange={e => setCustomerId(parseInt(e.target.value))}
+              className={inputStyle}
+              required
+            >
+              <option value="">Select a customer</option>
+              {customers?.map(customer => (
+                <option key={customer.id} value={customer.id}>
+                  {customer.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-        <div className="mb-6">
-          <label htmlFor="quantity" className={labelStyle}>
-            Quantity
-          </label>
-          <input
-            type="number"
-            min={1}
-            max={50}
-            id="quantity"
-            value={quantity}
-            required
-            onChange={e => setQuantity(parseInt(e.target.value))}
-            className={inputStyle}
-          />
-        </div>
-        <div className="mb-6">
-          <label htmlFor="customerId" className={labelStyle}>
-            Customer
-          </label>
-          <select
-            id="customerId"
-            value={customerId}
-            onChange={e => setCustomerId(parseInt(e.target.value))}
-            className={inputStyle}
-            required
-          >
-            <option value="">Select a customer</option>
-            {customers?.map(customer => (
-              <option key={customer.id} value={customer.id}>
-                {customer.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex justify-between w-2/3">
+        <div className="flex justify-between w-2/3 mt-3">
           <button
             type="submit"
             onClick={() => setOpen(false)}

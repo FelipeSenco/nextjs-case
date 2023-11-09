@@ -1,8 +1,11 @@
+"use client";
 import React, { useContext } from "react";
 import Header from "./Components/Header";
+import WeatherContext from "./Contexts/WeatherContext";
 import WeatherDisplay from "./Components/WeatherDisplay";
 
-export default async function Home() {
+export default function Home() {
+  const { weather } = useContext(WeatherContext);
   return (
     <>
       <Header />
@@ -14,7 +17,7 @@ export default async function Home() {
           <p className="text-lg text-gray-600 mb-8">
             Thank you for this opportunity to present my Next.js case.
           </p>
-          <WeatherDisplay />
+          <WeatherDisplay weatherData={weather} />
         </div>
       </main>
     </>
