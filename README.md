@@ -6,7 +6,7 @@ This is my NextJs fullstack app.
 
 Before you begin, ensure you have met the following requirements:
 
-- Node.js v18.x
+- Node.js v18.17.0 or above
 
 ## Setup Local Environment
 
