@@ -11,7 +11,7 @@ import { useQueryClient } from "react-query";
 type OrderFormModalProps = {
   open: boolean;
   setOpen: React.Dispatch<SetStateAction<boolean>>;
-  editOrder?: Order;
+  editOrder: Order | null;
 };
 
 const OrderFormModal: FC<OrderFormModalProps> = ({

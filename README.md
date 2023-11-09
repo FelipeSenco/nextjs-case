@@ -79,7 +79,7 @@ You can visit `http://localhost:3000` in your web browser to check the app.
 
 ### Description
 
-This full-stack Next.js application is composed of three main pages, utilizing Next.js's built-in file system-based routing for both pages and API endpoints. It is developed with React and TypeScript for a robust and type-safe user experience.
+This full-stack Next.js application consists of three main pages, leveraging Next.js's built-in file system-based routing for pages and API routes. It's crafted using React and TypeScript, offering a type-safe development experience. For styling, the app incorporates Tailwind CSS, providing a utility-first approach to design with responsive features. Data fetching and state management are handled by React Query, ensuring up-to-date UI based on server state.
 
 ### Home Page
 

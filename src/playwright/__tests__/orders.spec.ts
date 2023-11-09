@@ -25,7 +25,7 @@ test.describe("Orders", () => {
     await locators.quantityInput.fill("11");
     await locators.orderSubmit.click();
     await locators.lastRow.waitFor();
-    expect(locators.lastRow).toContainText(
+    await expect(locators.lastRow).toContainText(
       "Test Product edited " + currentTime
     );
     expect(locators.lastRow).toContainText("11");

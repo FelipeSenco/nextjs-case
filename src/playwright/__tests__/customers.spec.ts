@@ -6,7 +6,7 @@ test.describe("Customers", () => {
     const locators = getLocators(page);
     await page.goto(urls.costumersPage);
 
-    await locators.lastRow.getByText("3").waitFor();
+    await locators.lastRow.getByText("5").waitFor();
     const count = await page.getByRole("row").count();
     expect(count).toBeGreaterThan(1);
   });

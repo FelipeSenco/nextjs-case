@@ -6,6 +6,7 @@ module.exports = {
     "<rootDir>/.next/",
     "<rootDir>/node_modules/",
     "<rootDir>/src/playwright/",
+    "<rootDir>/src/__tests__/mocks",
   ],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",

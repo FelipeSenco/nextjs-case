@@ -26,7 +26,11 @@ const OrderView: FC<OrderViewProps> = ({
   return (
     <div className="container mx-auto mt-10">
       {!isError && !isLoading && orders?.length === 0 && (
-        <p className="text-gray-600 mt-4">There are no orders yet...</p>
+        <div className="flex justify-center items-center p-1">
+          <p className="text-lg font-semibold text-yellow-600 bg-yellow-100 border border-yellow-200 rounded-md shadow px-2">
+            There are no orders yet...
+          </p>
+        </div>
       )}
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

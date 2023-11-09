@@ -1,36 +1,9 @@
 import OrderView, { ExtendedOrder } from "@/app/Components/Orders/OrderView";
 import { fireEvent, render, screen, act } from "@testing-library/react";
-import { customersMock } from "./CustomerView.test";
+import { ordersMock } from "./mocks/mocks";
 
 const mockEdit = jest.fn();
 const mockDelete = jest.fn();
-
-const ordersMock: ExtendedOrder[] = [
-  {
-    id: 1,
-    product: "MockProduct1",
-    quantity: 10,
-    customerId: customersMock[0].id,
-    dateCreated: new Date(),
-    Customer: customersMock[0],
-  },
-  {
-    id: 2,
-    product: "MockProduct2",
-    quantity: 11,
-    customerId: customersMock[1].id,
-    dateCreated: new Date(),
-    Customer: customersMock[1],
-  },
-  {
-    id: 3,
-    product: "MockProduct3",
-    quantity: 12,
-    customerId: customersMock[2].id,
-    dateCreated: new Date(),
-    Customer: customersMock[2],
-  },
-];
 
 describe("OrderView component", () => {
   test("Show loading spinner if isLoading is true", () => {

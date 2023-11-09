@@ -1,24 +1,6 @@
 import CustomerView from "@/app/Components/Customers/CustomerView";
-import { Customer } from "@prisma/client";
 import { render, screen } from "@testing-library/react";
-
-export const customersMock: Customer[] = [
-  {
-    id: 1,
-    name: "Mock1",
-    email: "mock1@test.com",
-  },
-  {
-    id: 2,
-    name: "Mock2",
-    email: "mock2@test.com",
-  },
-  {
-    id: 3,
-    name: "Mock3",
-    email: "mock3@test.com",
-  },
-];
+import { customersMock } from "./mocks/mocks";
 
 describe("CustomerView component", () => {
   test("Show loading spinner if isLoading is true", () => {
