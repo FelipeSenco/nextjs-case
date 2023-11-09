@@ -1,9 +1,13 @@
-import { Customer } from "@prisma/client";
+import { Customer, Order } from "@prisma/client";
 import { FC } from "react";
 import LoadingSpinner from "../LoadingSpinner";
 
+export type ExtendedCustomer = Customer & {
+  orders?: Order[];
+};
+
 type CustomerViewProps = {
-  customers: Customer[];
+  customers: ExtendedCustomer[];
   isLoading: boolean;
   isError: boolean;
 };
@@ -39,6 +43,12 @@ const CustomerView: FC<CustomerViewProps> = ({
                     >
                       Email
                     </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Number of Orders
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
@@ -52,6 +62,9 @@ const CustomerView: FC<CustomerViewProps> = ({
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {customer.email}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {customer.orders?.length || 0}
                       </td>
                     </tr>
                   ))}
