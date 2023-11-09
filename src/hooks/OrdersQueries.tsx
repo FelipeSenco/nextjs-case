@@ -50,10 +50,9 @@ export const useEditOrderMutation = () => {
           order = {
             ...order,
             Customer: customer as Customer,
-            customerId: editedOrder.id,
+            customerId: editedOrder.customerId,
             quantity: editedOrder.quantity,
             product: editedOrder.product,
-            dateCreated: new Date(),
           };
         }
         return order;

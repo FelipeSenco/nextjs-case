@@ -1,6 +1,3 @@
-// src/pages/api/customers.ts
-
-import Orders from "@/app/view/orders/page";
 import { PrismaClient, Customer } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 

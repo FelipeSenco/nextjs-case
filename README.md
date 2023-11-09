@@ -67,7 +67,7 @@ Follow these steps to set up your local development environment:
      npm run dev
      ```
 
-   - For production:
+   - For production (recommended):
 
      ```bash
      npm run start
