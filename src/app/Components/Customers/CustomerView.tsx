@@ -25,28 +25,16 @@ const CustomerView: FC<CustomerViewProps> = ({
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
+                    <th scope="col" className={headingStyle}>
                       ID
                     </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
+                    <th scope="col" className={headingStyle}>
                       Name
                     </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
+                    <th scope="col" className={headingStyle}>
                       Email
                     </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
+                    <th scope="col" className={headingStyle}>
                       Number of Orders
                     </th>
                   </tr>
@@ -60,13 +48,9 @@ const CustomerView: FC<CustomerViewProps> = ({
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                         {customer.id}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {customer.name}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {customer.email}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className={cellStyle}>{customer.name}</td>
+                      <td className={cellStyle}>{customer.email}</td>
+                      <td className={cellStyle}>
                         {customer.orders?.length || 0}
                       </td>
                     </tr>
@@ -94,3 +78,7 @@ const CustomerView: FC<CustomerViewProps> = ({
 };
 
 export default CustomerView;
+
+const headingStyle =
+  "px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider";
+const cellStyle = "px-6 py-4 whitespace-nowrap text-sm text-gray-500";

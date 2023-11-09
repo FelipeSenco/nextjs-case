@@ -78,23 +78,23 @@ const OrderFormModal: FC<OrderFormModalProps> = ({
           WebkitOverflowScrolling: "touch",
           outline: "none",
           padding: "20px",
-          border: "1px solid #ccc",
+          border: "1px solid rgb(146 247 173)",
           borderRadius: "4px",
-          background: "#f2f2f2",
+          background: "rgb(222 255 238)",
           top: "auto",
           left: "auto",
           right: "auto",
           bottom: "auto",
-          width: "30%",
-          height: "40%",
+          width: "500px",
+          height: "475px",
         },
       }}
     >
       <form
-        className="relative p-8 w-full max-w-md m-auto flex-col flex items-center justify-center rounded"
+        className="relative p-8 w-full max-w-md m-auto flex-col flex items-center justify-center rounded shadow-lg bg-white"
         onSubmit={e => onSubmit(e)}
       >
-        <div className="flex flex-col items-start">
+        <div className="w-full">
           <div className="mb-6">
             <label htmlFor="product" className={labelStyle}>
               Product
@@ -134,7 +134,7 @@ const OrderFormModal: FC<OrderFormModalProps> = ({
               id="customerId"
               value={customerId}
               onChange={e => setCustomerId(parseInt(e.target.value))}
-              className={inputStyle}
+              className="block appearance-none w-full border border-gray-300 rounded py-2 px-3 bg-white text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
               data-testid="customer-select"
             >
@@ -147,23 +147,24 @@ const OrderFormModal: FC<OrderFormModalProps> = ({
             </select>
           </div>
         </div>
-        <div className="flex justify-between w-2/3 mt-3">
+        <div className="flex justify-between w-full mt-8">
           <button
-            type="submit"
+            type="button"
             onClick={() => setOpen(false)}
-            className="rounded-md border border-transparent bg-red-500 hover:bg-red-400 py-2 px-4"
+            className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={isCreateLoading || isEditLoading}
-            className="rounded-md border border-transparent bg-blue-500 hover:bg-blue-400 py-2 px-4"
+            className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
           >
             Submit
           </button>
         </div>
       </form>
+
       {(isEditLoading || isCreateLoading) && <p>Please wait...</p>}
       {(isCreateError || isEditError) && (
         <div className="flex justify-center items-center">
@@ -176,8 +177,8 @@ const OrderFormModal: FC<OrderFormModalProps> = ({
   );
 };
 
-const labelStyle = "block text-sm font-medium text-gray-700";
+const labelStyle = "block text-gray-700 text-sm font-semibold mb-2";
 const inputStyle =
-  "rounded-md border border-gray-300 bg-white px-1 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50";
+  "appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
 
 export default OrderFormModal;

@@ -122,7 +122,6 @@ function validateOrderId(id: number): string | null {
 }
 
 function validateProduct(product: string): string | null {
-  console.log(product.length);
   if (!product || typeof product !== "string" || product.length > 50) {
     return "Invalid or too long product name.";
   }

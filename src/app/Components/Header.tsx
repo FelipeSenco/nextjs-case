@@ -6,19 +6,19 @@ import { usePathname } from "next/navigation";
 const Header = () => {
   const pathname = usePathname();
   return (
-    <nav className="bg-white shadow-md bg-gray-200">
-      <div className="container mx-auto px-6 py-3 flex justify-between items-center">
-        <div className="flex space-x-4 gap-10">
+    <nav className="bg-green-100 shadow-lg bg-gray-200 p-fixed">
+      <div className="container mx-auto px-6 py-3 flex justify-center items-center w-1/3">
+        <div className="flex space-x-4 justify-between w-full">
           <Link
             href="/"
-            className={pathname === "/" ? "bg-blue-200 px-4 rounded" : ""}
+            className={pathname === "/" ? "bg-green-300 px-4 rounded" : ""}
           >
             <span className={linkTextStyle}> Home</span>
           </Link>
           <Link
             href="/view/customers"
             className={
-              pathname === "/view/customers" ? "bg-blue-200 px-4 rounded" : ""
+              pathname === "/view/customers" ? "bg-green-200 px-4 rounded" : ""
             }
           >
             <span className={linkTextStyle}> Customers</span>
@@ -26,7 +26,7 @@ const Header = () => {
           <Link
             href="/view/orders"
             className={
-              pathname === "/view/orders" ? "bg-blue-200 px-4 rounded" : ""
+              pathname === "/view/orders" ? "bg-green-200 px-4 rounded" : ""
             }
           >
             <span className={linkTextStyle}>Orders</span>
@@ -40,4 +40,4 @@ const Header = () => {
 export default Header;
 
 const linkTextStyle =
-  "text-blue-600 hover:text-blue-800 font-semibold transition duration-300 cursor-pointer";
+  "text-green-700 hover:text-green-900 font-semibold transition duration-300 cursor-pointer";

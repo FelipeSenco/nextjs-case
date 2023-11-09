@@ -39,18 +39,20 @@ const DeleteModal: FC<DeleteModalProps> = ({
           left: "auto",
           right: "auto",
           bottom: "auto",
-          width: "40%",
-          height: "20%",
+          width: "450px",
+          height: "200px",
         },
       }}
     >
       <div className="flex flex-col items-center justify-between h-full">
-        <p className="text-lg bold">Are you sure you want to delete?</p>
-        <div className="flex justify-between w-2/3">
+        <p className="text-xl font-bold text-gray-800 mb-8">
+          Are you sure you want to delete?
+        </p>
+        <div className="flex justify-between w-full max-w-xs">
           <button
-            type="submit"
+            type="button"
             onClick={() => setOpen(false)}
-            className="rounded-md border border-transparent bg-red-500 hover:bg-red-400 py-2 px-4"
+            className="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-6 py-2 text-base font-medium text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 mr-4"
           >
             Cancel
           </button>
@@ -58,11 +60,12 @@ const DeleteModal: FC<DeleteModalProps> = ({
             type="button"
             onClick={onConfirm}
             disabled={isLoading}
-            className="rounded-md border border-transparent bg-blue-500 hover:bg-blue-400 py-2 px-4"
+            className="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-6 py-2 text-base font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-700"
           >
             Confirm
           </button>
         </div>
+
         {isLoading && <p>Please wait...</p>}
         {isError && (
           <div className="flex justify-center items-center">

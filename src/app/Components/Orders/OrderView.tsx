@@ -39,40 +39,22 @@ const OrderView: FC<OrderViewProps> = ({
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
+                    <th scope="col" className={headingStyle}>
                       Order ID
                     </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
+                    <th scope="col" className={headingStyle}>
                       Product
                     </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
+                    <th scope="col" className={headingStyle}>
                       Quantity
                     </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
+                    <th scope="col" className={headingStyle}>
                       Customer Name
                     </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
+                    <th scope="col" className={headingStyle}>
                       Date Created
                     </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
+                    <th scope="col" className={headingStyle}>
                       Actions
                     </th>
                   </tr>
@@ -83,16 +65,10 @@ const OrderView: FC<OrderViewProps> = ({
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                         {order.id}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {order.product}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {order.quantity}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {order.Customer?.name}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className={cellStyle}>{order.product}</td>
+                      <td className={cellStyle}>{order.quantity}</td>
+                      <td className={cellStyle}>{order.Customer?.name}</td>
+                      <td className={cellStyle}>
                         {new Date(order.dateCreated).toLocaleDateString()}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -136,3 +112,7 @@ const OrderView: FC<OrderViewProps> = ({
 };
 
 export default OrderView;
+
+const headingStyle =
+  "px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider";
+const cellStyle = "px-6 py-4 whitespace-nowrap text-sm text-gray-500";
