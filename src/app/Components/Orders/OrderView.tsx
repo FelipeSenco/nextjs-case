@@ -93,12 +93,14 @@ const OrderView: FC<OrderViewProps> = ({
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <button
+                          data-testid={`order-edit-${order.id}`}
                           onClick={() => onEdit(order)}
                           className="text-indigo-600 hover:text-indigo-900"
                         >
                           Edit
                         </button>
                         <button
+                          data-testid={`order-delete-${order.id}`}
                           onClick={() => onDelete(order.id)}
                           className="text-red-600 hover:text-red-900 ml-4"
                         >
@@ -111,7 +113,10 @@ const OrderView: FC<OrderViewProps> = ({
               </table>
               {isLoading && <LoadingSpinner />}
               {isError && (
-                <div className="flex justify-center items-center">
+                <div
+                  className="flex justify-center items-center"
+                  data-testid="order-view-error"
+                >
                   <p className="text-red-500">
                     There was an error fetching the orders. Please reload the
                     page...

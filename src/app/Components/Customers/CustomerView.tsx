@@ -53,7 +53,10 @@ const CustomerView: FC<CustomerViewProps> = ({
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {customers?.map(customer => (
-                    <tr key={customer.id}>
+                    <tr
+                      key={customer.id}
+                      data-testid={`customer-row-${customer.id}`}
+                    >
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                         {customer.id}
                       </td>
@@ -72,7 +75,10 @@ const CustomerView: FC<CustomerViewProps> = ({
               </table>
               {isLoading && <LoadingSpinner />}
               {isError && (
-                <div className="flex justify-center items-center">
+                <div
+                  className="flex justify-center items-center"
+                  data-testid="customer-view-error"
+                >
                   <p className="text-red-500">
                     There was an error fetching customer data. Please reload the
                     page...

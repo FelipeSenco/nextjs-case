@@ -10,7 +10,10 @@ export default function Home() {
     <>
       <Header />
       <main className="flex min-h-screen p-24 items-center justify-center bg-gray-100">
-        <div className="flex flex-col bg-white rounded-lg shadow-lg p-10">
+        <div
+          className="flex flex-col bg-white rounded-lg shadow-lg p-10"
+          data-testid="welcome-message"
+        >
           <h1 className="text-3xl font-semibold text-gray-800 mb-2">
             Welcome!
           </h1>
