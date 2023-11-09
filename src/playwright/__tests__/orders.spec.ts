@@ -1,5 +1,5 @@
-import { test, expect } from "@playwright/test";
 import { getLocators, urls } from "../lib/locators";
+import { test, expect } from "@playwright/test";
 
 test.describe("Orders", () => {
   test("Should be able to do all CRUD operations with orders", async ({

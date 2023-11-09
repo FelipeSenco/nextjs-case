@@ -1,5 +1,5 @@
-import { test, expect } from "@playwright/test";
 import { getLocators, urls } from "../lib/locators";
+import { test, expect } from "@playwright/test";
 
 test.describe("Links", () => {
   test("Should navigate to the correct pages", async ({ page }) => {
