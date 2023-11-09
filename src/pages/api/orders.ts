@@ -14,12 +14,11 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   switch (req.method) {
-    //GET
     case "GET":
       try {
         const orders = await prisma.order.findMany({
           include: {
-            Customer: true, // This includes the customer data
+            Customer: true,
           },
         });
         res.status(200).json({ orders });
@@ -28,26 +27,21 @@ export default async function handler(
       }
       break;
 
-    //POST
     case "POST":
       try {
         const { product, quantity, customerId } = req.body;
 
-        // Check if customerId is provided and is a number
-        if (!customerId || typeof customerId !== "number") {
-          return res
-            .status(400)
-            .json({ error: "Invalid or missing customerId." });
-        }
+        const productError = validateProduct(product);
+        if (productError) return res.status(400).json({ error: productError });
 
-        // Check if the customerId corresponds to an existing Customer
-        const customerExists = await prisma.customer.findUnique({
-          where: { id: customerId },
-        });
+        const quantityError = validateQuantity(quantity);
+        if (quantityError)
+          return res.status(400).json({ error: quantityError });
 
-        if (!customerExists) {
-          return res.status(404).json({ error: "Customer not found." });
-        }
+        const customerError = await validateCustomerId(customerId);
+        if (customerError)
+          return res.status(400).json({ error: customerError });
+
         const order = await prisma.order.create({
           data: { product, quantity, customerId },
         });
@@ -58,36 +52,27 @@ export default async function handler(
       }
       break;
 
-    //PUT
     case "PUT":
       try {
-        const { id, customerId } = req.body;
+        const { id, product, quantity, customerId } = req.body;
 
-        // Check if customerId is provided and is a number
-        if (!customerId || typeof customerId !== "number") {
-          return res
-            .status(400)
-            .json({ error: "Invalid or missing customerId." });
-        }
+        const orderError = validateOrderId(id);
+        if (orderError) return res.status(400).json({ error: orderError });
 
-        // Check if order id is provided and is a number
-        if (!id || typeof id !== "number") {
-          return res
-            .status(400)
-            .json({ error: "Invalid or missing order id." });
-        }
+        const productError = validateProduct(product);
+        if (productError) return res.status(400).json({ error: productError });
 
-        // Check if the customerId corresponds to an existing Customer
-        const customerExists = await prisma.customer.findUnique({
-          where: { id: customerId },
-        });
-        if (!customerExists) {
-          return res.status(404).json({ error: "Customer not found." });
-        }
+        const quantityError = validateQuantity(quantity);
+        if (quantityError)
+          return res.status(400).json({ error: quantityError });
+
+        const customerError = await validateCustomerId(customerId);
+        if (customerError)
+          return res.status(400).json({ error: customerError });
 
         const order = await prisma.order.update({
           where: { id },
-          data: req.body,
+          data: { product, quantity, customerId },
         });
         res.status(200).json({ order });
       } catch (error) {
@@ -96,29 +81,57 @@ export default async function handler(
       }
       break;
 
-    //DELETE
     case "DELETE":
       try {
-        const id = Number(req.query.id);
-        console.log(id);
+        const { id } = req.query;
 
-        // Check if order id is provided and is a number
-        if (!id || typeof id !== "number") {
-          return res
-            .status(400)
-            .json({ error: "Invalid or missing order id." });
-        }
+        const orderError = validateOrderId(Number(id));
+        if (orderError) return res.status(400).json({ error: orderError });
 
         await prisma.order.delete({
-          where: { id },
+          where: { id: Number(id) },
         });
         res.status(200).json({ message: "Order deleted successfully." });
       } catch (error) {
         res.status(500).json({ error: "Failed to delete order." });
       }
       break;
+
     default:
       res.setHeader("Allow", ["GET", "POST", "PUT", "DELETE"]);
       res.status(405).end(`Method ${req.method} Not Allowed`);
   }
+}
+async function validateCustomerId(customerId: number): Promise<string | null> {
+  if (!customerId || typeof customerId !== "number") {
+    return "Invalid or missing customerId.";
+  }
+
+  const customerExists = await prisma.customer.findUnique({
+    where: { id: customerId },
+  });
+
+  return customerExists ? null : "Customer not found.";
+}
+
+function validateOrderId(id: number): string | null {
+  if (!id || typeof id !== "number") {
+    return "Invalid or missing order id.";
+  }
+  return null;
+}
+
+function validateProduct(product: string): string | null {
+  console.log(product.length);
+  if (!product || typeof product !== "string" || product.length > 50) {
+    return "Invalid or too long product name.";
+  }
+  return null;
+}
+
+function validateQuantity(quantity: number): string | null {
+  if (typeof quantity !== "number" || quantity < 1 || quantity > 50) {
+    return "Invalid quantity. Must be a number between 1 and 50.";
+  }
+  return null;
 }

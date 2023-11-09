@@ -41,9 +41,9 @@ Follow these steps to set up your local development environment:
    npx prisma migrate dev --name init
    ```
 
-6. **Initialize data in the database**
+6. **Initialize data in the database (not required in most cases)**
 
-   Seed the database to create initial records, this is necessary to generate the customers data:
+   The project rely on the database seed to generate Customers. The database seed should run automatically after the migration, but if it fails you can run the command to try again:
 
    ```bash
    npm run seed
@@ -111,7 +111,7 @@ npm run test
 
 ### Playwright Tests
 
-To run tests with Playwright, make sure the app is running, as these tests interact with the live application.
+To run tests with Playwright, make sure the app is running in production mode, as these tests interact with the live application.
 
 #### Install Browsers
 
