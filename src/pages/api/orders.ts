@@ -100,8 +100,9 @@ export default async function handler(
     case "DELETE":
       try {
         const id = Number(req.query.id);
+        console.log(id);
 
-        // Check if customerId is provided and is a number
+        // Check if order id is provided and is a number
         if (!id || typeof id !== "number") {
           return res
             .status(400)

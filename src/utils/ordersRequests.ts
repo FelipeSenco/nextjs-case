@@ -13,3 +13,7 @@ export async function createOrder(data: AddOrderData): Promise<void> {
 export async function editOrder(data: EditOrderData): Promise<void> {
   await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/orders`, data);
 }
+
+export async function deleteOrder(id: number): Promise<void> {
+  await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/orders?id=${id}`);
+}

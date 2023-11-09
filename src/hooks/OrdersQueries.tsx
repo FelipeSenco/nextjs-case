@@ -1,7 +1,12 @@
 "use client";
 
 import { ExtendedOrder } from "@/app/Components/Orders/OrderView";
-import { createOrder, editOrder, getOrders } from "@/utils/ordersRequests";
+import {
+  createOrder,
+  deleteOrder,
+  editOrder,
+  getOrders,
+} from "@/utils/ordersRequests";
 import { Order } from "@prisma/client";
 import { useMutation, useQuery } from "react-query";
 
@@ -35,6 +40,19 @@ export const useEditOrderMutation = () => {
   const { refetch } = useOrdersQuery();
 
   return useMutation(editOrder, {
+    onError: (error: Error) => {
+      console.log(error);
+    },
+    onSuccess: () => {
+      refetch();
+    },
+  });
+};
+
+export const useDeleteOrderMutation = () => {
+  const { refetch } = useOrdersQuery();
+
+  return useMutation(deleteOrder, {
     onError: (error: Error) => {
       console.log(error);
     },
