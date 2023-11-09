@@ -31,7 +31,6 @@ export default async function handler(
     //POST
     case "POST":
       try {
-        console.log(req.body);
         const { product, quantity, customerId } = req.body;
 
         // Check if customerId is provided and is a number
@@ -62,12 +61,37 @@ export default async function handler(
     //PUT
     case "PUT":
       try {
+        const { id, customerId } = req.body;
+
+        // Check if customerId is provided and is a number
+        if (!customerId || typeof customerId !== "number") {
+          return res
+            .status(400)
+            .json({ error: "Invalid or missing customerId." });
+        }
+
+        // Check if order id is provided and is a number
+        if (!id || typeof id !== "number") {
+          return res
+            .status(400)
+            .json({ error: "Invalid or missing order id." });
+        }
+
+        // Check if the customerId corresponds to an existing Customer
+        const customerExists = await prisma.customer.findUnique({
+          where: { id: customerId },
+        });
+        if (!customerExists) {
+          return res.status(404).json({ error: "Customer not found." });
+        }
+
         const order = await prisma.order.update({
-          where: { id: Number(req.query.id) },
+          where: { id },
           data: req.body,
         });
         res.status(200).json({ order });
       } catch (error) {
+        console.log(error);
         res.status(500).json({ error: "Failed to update order." });
       }
       break;
@@ -75,8 +99,17 @@ export default async function handler(
     //DELETE
     case "DELETE":
       try {
+        const id = Number(req.query.id);
+
+        // Check if customerId is provided and is a number
+        if (!id || typeof id !== "number") {
+          return res
+            .status(400)
+            .json({ error: "Invalid or missing order id." });
+        }
+
         await prisma.order.delete({
-          where: { id: Number(req.query.id) },
+          where: { id },
         });
         res.status(200).json({ message: "Order deleted successfully." });
       } catch (error) {

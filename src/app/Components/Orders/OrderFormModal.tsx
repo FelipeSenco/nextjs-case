@@ -1,16 +1,26 @@
 "use client";
 import { useCustomersQuery } from "@/hooks/CustomerQueries";
-import { useCreateOrderMutation } from "@/hooks/OrdersQueries";
+import {
+  useCreateOrderMutation,
+  useEditOrderMutation,
+} from "@/hooks/OrdersQueries";
+import { Order } from "@prisma/client";
 import { FC, FormEvent, SetStateAction, useState } from "react";
 import ReactModal from "react-modal";
 import { useQueryClient } from "react-query";
+import LoadingSpinner from "../LoadingSpinner";
 
 type OrderFormModalProps = {
   open: boolean;
   setOpen: React.Dispatch<SetStateAction<boolean>>;
+  editOrder?: Order;
 };
 
-const OrderFormModal: FC<OrderFormModalProps> = ({ open, setOpen }) => {
+const OrderFormModal: FC<OrderFormModalProps> = ({
+  open,
+  setOpen,
+  editOrder,
+}) => {
   //check if customers are loaded, load if required
   const queryClient = useQueryClient();
   const customerDataLoaded = !!queryClient.getQueryData(["customers"]);
@@ -18,20 +28,42 @@ const OrderFormModal: FC<OrderFormModalProps> = ({ open, setOpen }) => {
 
   //get the mutation the create order
   const {
-    mutateAsync: createOrder,
-    isLoading,
-    isError,
+    mutateAsync: createOrderMutation,
+    isLoading: isCreateLoading,
+    isError: isCreateError,
   } = useCreateOrderMutation();
 
-  const [product, setProduct] = useState("");
-  const [quantity, setQuantity] = useState(0);
-  const [customerId, setCustomerId] = useState(0);
+  //get the mutation to edit order
+  const {
+    mutateAsync: editOrderMutation,
+    isLoading: isEditLoading,
+    isError: isEditError,
+  } = useEditOrderMutation();
+
+  const [product, setProduct] = useState(editOrder?.product || "");
+  const [quantity, setQuantity] = useState(editOrder?.quantity || 0);
+  const [customerId, setCustomerId] = useState(editOrder?.customerId || 0);
+
+  const onCreate = async () => {
+    await createOrderMutation({ product, quantity, customerId });
+    !isCreateError && setOpen(false);
+  };
+
+  console.log(editOrder);
+
+  const onEdit = async () => {
+    await editOrderMutation({
+      product,
+      quantity,
+      customerId,
+      id: editOrder?.id as number,
+    });
+    !isEditError && setOpen(false);
+  };
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await createOrder({ product, quantity, customerId });
-    console.log({ id: customerId, product, quantity });
-    !isError && setOpen(false);
+    editOrder?.id ? await onEdit() : await onCreate();
   };
 
   return (
@@ -124,12 +156,21 @@ const OrderFormModal: FC<OrderFormModalProps> = ({ open, setOpen }) => {
           </button>
           <button
             type="submit"
+            disabled={isCreateLoading || isEditLoading}
             className="rounded-md border border-transparent bg-blue-500 hover:bg-blue-400 py-2 px-4"
           >
             Submit
           </button>
         </div>
       </form>
+      {(isEditLoading || isCreateLoading) && <p>Please wait...</p>}
+      {(isCreateError || isEditError) && (
+        <div className="flex justify-center items-center">
+          <p className="text-red-500">
+            There was an error creating/editing the order. Please try again...
+          </p>
+        </div>
+      )}
     </ReactModal>
   );
 };

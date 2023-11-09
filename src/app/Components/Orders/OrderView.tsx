@@ -3,7 +3,6 @@ import { FC } from "react";
 import LoadingSpinner from "../LoadingSpinner";
 
 export type ExtendedOrder = Order & {
-  // Updated type to include customer info
   Customer: {
     name: string;
   };
@@ -13,9 +12,17 @@ type OrderViewProps = {
   isLoading: boolean;
   isError: boolean;
   orders: ExtendedOrder[];
+  onEdit: (order: Order) => void;
+  onDelete: (orderId: number) => void;
 };
 
-const OrderView: FC<OrderViewProps> = ({ isLoading, isError, orders = [] }) => {
+const OrderView: FC<OrderViewProps> = ({
+  isLoading,
+  isError,
+  orders = [],
+  onEdit,
+  onDelete,
+}) => {
   return (
     <div className="container mx-auto mt-10">
       {!isError && !isLoading && orders?.length === 0 && (
@@ -58,6 +65,12 @@ const OrderView: FC<OrderViewProps> = ({ isLoading, isError, orders = [] }) => {
                     >
                       Date Created
                     </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
@@ -76,7 +89,21 @@ const OrderView: FC<OrderViewProps> = ({ isLoading, isError, orders = [] }) => {
                         {order.Customer?.name}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(order.dateCreated).toLocaleDateString()}{" "}
+                        {new Date(order.dateCreated).toLocaleDateString()}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button
+                          onClick={() => onEdit(order)}
+                          className="text-indigo-600 hover:text-indigo-900"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => onDelete(order.id)}
+                          className="text-red-600 hover:text-red-900 ml-4"
+                        >
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   ))}

@@ -5,12 +5,19 @@ import ReactModal from "react-modal";
 import { useOrdersQuery } from "@/hooks/OrdersQueries";
 import OrderFormModal from "@/app/Components/Orders/OrderFormModal";
 import OrderView from "@/app/Components/Orders/OrderView";
+import { Order } from "@prisma/client";
 
 ReactModal.setAppElement("#view-layout");
 
 const Orders = () => {
   const { orders, isLoading, isError } = useOrdersQuery(true);
   const [showOrderForm, setShowOrderForm] = useState(false);
+  const [editOrder, setEditOrder] = useState<Order>();
+
+  const onEditClick = (order: Order) => {
+    setEditOrder(order);
+    setShowOrderForm(true);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center p-4">
@@ -22,9 +29,19 @@ const Orders = () => {
       >
         Create Order
       </button>
-      <OrderView orders={orders} isError={isError} isLoading={isLoading} />
+      <OrderView
+        orders={orders}
+        isError={isError}
+        isLoading={isLoading}
+        onEdit={onEditClick}
+        onDelete={() => {}}
+      />
       {showOrderForm && (
-        <OrderFormModal open={showOrderForm} setOpen={setShowOrderForm} />
+        <OrderFormModal
+          open={showOrderForm}
+          setOpen={setShowOrderForm}
+          editOrder={editOrder}
+        />
       )}
     </div>
   );

@@ -9,3 +9,7 @@ export async function getOrders(): Promise<Order[]> {
 export async function createOrder(data: AddOrderData): Promise<void> {
   await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/orders`, data);
 }
+
+export async function editOrder(data: EditOrderData): Promise<void> {
+  await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/orders`, data);
+}
