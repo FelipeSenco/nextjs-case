@@ -107,6 +107,7 @@ const OrderFormModal: FC<OrderFormModalProps> = ({
               required
               onChange={e => setProduct(e.target.value)}
               className={inputStyle}
+              data-testid="product-input"
             />
           </div>
           <div className="mb-6">
@@ -122,6 +123,7 @@ const OrderFormModal: FC<OrderFormModalProps> = ({
               required
               onChange={e => setQuantity(parseInt(e.target.value))}
               className={inputStyle}
+              data-testid="quantity-input"
             />
           </div>
           <div className="mb-6">
@@ -134,6 +136,7 @@ const OrderFormModal: FC<OrderFormModalProps> = ({
               onChange={e => setCustomerId(parseInt(e.target.value))}
               className={inputStyle}
               required
+              data-testid="customer-select"
             >
               <option value="">Select a customer</option>
               {customers?.map(customer => (

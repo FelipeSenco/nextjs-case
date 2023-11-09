@@ -116,7 +116,7 @@ describe("OrderView component", () => {
     expect(mockEdit).toHaveBeenCalledWith(ordersMock[1]);
   });
 
-  test.only("Call onDelete with the correct order id as argument, when the delete button is clicked", async () => {
+  test("Call onDelete with the correct order id as argument, when the delete button is clicked", async () => {
     render(
       <OrderView
         isLoading={false}
