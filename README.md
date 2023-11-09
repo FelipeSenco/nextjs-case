@@ -118,7 +118,7 @@ To run tests with Playwright, make sure the app is running using `npm run start`
 Before running Playwright tests for the first time, you need to ensure all the necessary browsers are installed:
 
 ```bash
-playwright install
+npx playwright install
 ```
 
 #### Run tests
